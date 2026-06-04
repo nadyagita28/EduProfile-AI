@@ -27,7 +27,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-edu-bg px-4">
       {/*header*/}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-edu-navy mb-1 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-bold text-edu-navy mb-1 tracking-tight">
           EduProfile AI
         </h1>
         <p className="text-edu-text-gray text-sm">

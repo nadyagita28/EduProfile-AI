@@ -32,7 +32,7 @@ const Register = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-edu-bg px-4 py-12">
       {/*header*/}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-edu-navy mb-2 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-edu-navy mb-2 tracking-tight">
           Gabung di EduProfile AI
         </h1>
         <p className="text-edu-text-gray text-sm">

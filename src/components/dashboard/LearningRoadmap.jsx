@@ -97,14 +97,14 @@ const LearningRoadmap = ({ roadmapText }) => {
       {/*header*/}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-50 pb-5">
         <div className="flex items-center gap-3.5">
-          <div className="p-3 bg-blue-50 rounded-2xl text-[#003366]">
+          <div className="p-3 bg-blue-50 rounded-2xl text-edu-navy">
             <Compass
               size={24}
               className="animate-spin-slow animate-duration-[12s]"
             />
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-edu-navy tracking-tight">
+            <h2 className="text-base sm:text-xl font-extrabold text-edu-navy tracking-tight">
               {parsedRoadmap.title || "Roadmap Pembelajaran"}
             </h2>
             <p className="text-xs text-edu-text-gray font-medium mt-0.5">
