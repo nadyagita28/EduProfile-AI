@@ -1,5 +1,5 @@
 import { Home as HomeIcon, User, Clock } from "lucide-react";
-import useAuthStore from "../store/useAuthStore";
+import useAuthStore from "../../store/useAuthStore";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const { profile } = useAuthStore();

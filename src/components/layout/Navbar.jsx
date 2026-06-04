@@ -1,8 +1,19 @@
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/useAuthStore";
+import useResultStore from "../../store/useResultStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { logout } = useAuthStore();
+  const { clearResult } = useResultStore();
+
+  const handleLogout = () => {
+    logout();
+    clearResult();
+    navigate("/");
+  };
+
   return (
     <nav className="flex justify-between items-center px-12 py-4 bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
       <div className="text-xl font-bold text-edu-navy">EduProfile AI</div>
@@ -23,7 +34,7 @@ const Navbar = () => {
       </div>
 
       <button
-        onClick={() => navigate("/")}
+        onClick={handleLogout}
         className="bg-edu-navy text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all flex items-center gap-2 cursor-pointer"
       >
         <LogOut size={14} />

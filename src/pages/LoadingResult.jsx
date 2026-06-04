@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useResultStore from "../store/useResultStore";
 import useSessionStore from "../store/useSessionStore";
+import useAuthStore from "../store/useAuthStore";
 
 const POLL_INTERVAL_MS = 3000;
 
@@ -57,48 +58,37 @@ const LoadingResult = () => {
   }, []);
 
   useEffect(() => {
-    let pollCount = 0;
+    //dummy
+    const USE_DUMMY = false;
+    if (USE_DUMMY) {
+      const timeout = setTimeout(() => navigate("/dashboard"), 8000);
+      return () => clearTimeout(timeout);
+    }
+    //end dummy
 
-    const poll = setInterval(() => {
-      pollCount++;
+    const token = useAuthStore.getState().token;
 
-      //ganti fetch ke GET /test/sessions/:sessionId/result
-      // const res = await fetch(`/api/test/sessions/${sessionId}/result`);
-      // const data = await res.json();
-      // if (data.data.result_status === "ready") { ... }
-
-      //anggap ready setelah 3x polling (9 detik)
-      if (pollCount >= 3) {
-        clearInterval(poll);
-
-        const dummyResult = {
-          result_id: "uuid-r-new",
-          session_id: sessionId ?? "uuid-session-001",
-          result_status: "ready",
-          scores: {
-            performance: { V: 88.0, A: 42.0, K: 73.0 },
-            essay: { V: 80.0, A: 49.0, K: 66.0 },
-            final: { V: 85.0, A: 45.0, K: 70.0 },
+    const poll = setInterval(async () => {
+      try {
+        const res = await fetch(
+          `https://friday-boozy-icon.ngrok-free.dev/v1/test/sessions/${sessionId}/result`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true",
+              Authorization: `Bearer ${token}`,
+            },
           },
-          dominant_style: "V",
-          learning_pace: "fast_accurate",
-          pace_breakdown: {
-            avg_time_per_question_ms: 18500,
-            accuracy_pct: 85.0,
-            speed_label: "fast",
-            accuracy_label: "high",
-            interpretation:
-              "Kamu adalah tipe pemelajar yang cepat dan tepat. Kamu mampu memproses informasi dengan cepat dan jawaban cenderung akurat.",
-          },
-          ai_analysis:
-            "Berdasarkan hasil test kamu, kamu adalah seorang Visual yang kuat...",
-          roadmap:
-            "## Roadmap pembelajaran untuk gaya belajar visual\n\n### Minggu 1\n- gunakan mind mapping...",
-          generated_at: new Date().toISOString(),
-        };
+        );
+        const json = await res.json();
 
-        setLatestResult(dummyResult);
-        navigate("/dashboard");
+        if (json.success && json.data.result_status === "ready") {
+          clearInterval(poll);
+          setLatestResult(json.data);
+          navigate("/dashboard");
+        }
+      } catch {
+        //retry on next interval
       }
     }, POLL_INTERVAL_MS);
 

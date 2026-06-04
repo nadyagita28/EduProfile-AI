@@ -5,34 +5,26 @@ import useAuthStore from "../store/useAuthStore";
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const { setProfile } = useAuthStore();
+  const { createProfile, isLoading: isSaving, error } = useAuthStore();
 
   const [fullName, setFullName] = useState("");
   const [occupation, setOccupation] = useState("");
   const [educationLevel, setEducationLevel] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const isValid = fullName.trim() !== "" && occupation !== "";
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isValid) return;
-    setIsLoading(true);
 
-    //dummy => await fetch("POST /profile", {body: {}})
-    setTimeout(() => {
-      setProfile({
-        id: "uuid-p01",
-        user_id: "uuid-001",
-        full_name: fullName,
-        occupation,
-        education_level: educationLevel || null,
-        avatar_url: null,
-        date_of_birth: null,
-        gender: null,
-      });
-      setIsLoading(false);
+    const result = await createProfile({
+      full_name: fullName,
+      occupation,
+      education_level: educationLevel || undefined,
+    });
+
+    if (result.success) {
       navigate("/");
-    }, 600);
+    }
   };
 
   return (
@@ -52,6 +44,11 @@ const Onboarding = () => {
         <h2 className="text-base font-bold text-edu-navy border-b border-gray-100 pb-4">
           Data Diri
         </h2>
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 text-sm font-medium px-4 py-3 rounded-lg">
+            {error}
+          </div>
+        )}
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-edu-text-gray">
@@ -67,12 +64,12 @@ const Onboarding = () => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Masukkan nama lengkap"
-              className="w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all placeholder:text-gray-300 text-sm"
+              className="w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all placeholder:text-gray-300 text-sm text-edu-navy"
             />
           </div>
         </div>
 
-        {/*okupasi*/}
+        {/*status*/}
         <div className="space-y-2">
           <label className="text-sm font-medium text-edu-text-gray">
             Status <span className="text-red-400">*</span>
@@ -85,22 +82,22 @@ const Onboarding = () => {
             <select
               value={occupation}
               onChange={(e) => setOccupation(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-8 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all text-sm appearance-none text-gray-400"
+              className={`w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-8 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all text-sm appearance-none ${occupation ? "text-edu-navy" : "text-gray-400"}`}
             >
               <option value="" disabled>
                 Pilih statusmu
               </option>
-              <option value="pelajar">pelajar (SMP/SMA/SMK/MA)</option>
+              <option value="pelajar">Pelajar (SMP/SMA/SMK/MA)</option>
               <option value="mahasiswa">Mahasiswa</option>
               <option value="guru">Guru/Pengajar</option>
-              <option value="non_akademisi">Non_Akademisi</option>
+              <option value="non_akademisi">Non-Akademisi</option>
               <option value="lainnya">Lainnya</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
               <svg
                 className="fill-current h-4 w-4"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBok="0 0 20 20"
+                viewBox="0 0 20 20"
               >
                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
               </svg>
@@ -124,7 +121,7 @@ const Onboarding = () => {
             <select
               value={educationLevel}
               onChange={(e) => setEducationLevel(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-8 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all text-sm appearance-none text-gray-400"
+              className={`w-full bg-white border border-gray-200 rounded-lg py-3 pl-10 pr-8 focus:outline-none focus:ring-2 focus:ring-edu-navy/10 focus:border-edu-navy transition-all text-sm appearance-none ${educationLevel ? "text-edu-navy" : "text-gray-400"}`}
             >
               <option value="">Pilih jenjang pendidikan</option>
               <option value="SMP">SMP</option>
@@ -146,14 +143,15 @@ const Onboarding = () => {
           </div>
         </div>
 
+        {/*tombol submit*/}
         <div className="pt-2">
           <button
             onClick={handleSubmit}
-            disabled={!isValid || isLoading}
+            disabled={!isValid || isSaving}
             className="w-full bg-edu-navy text-white font-semibold py-3.5 rounded-lg hover:bg-[#002a55] transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Menyimpan..." : "Mulai Tes"}{" "}
-            {isLoading && <ArrowRight size={16} />}
+            {isSaving ? "Menyimpan..." : "Lanjutkan"}{" "}
+            {!isSaving && <ArrowRight size={16} />}
           </button>
         </div>
       </div>

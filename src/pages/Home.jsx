@@ -10,11 +10,10 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-edu-bg flex flex-col">
-      {/* navbar */}
+      {/*navbar*/}
       <nav className="flex justify-between items-center px-12 py-5 bg-white border-b border-gray-100">
         <div className="text-xl font-bold text-edu-navy">EduProfile AI</div>
 
-        {/* menu tengah */}
         <div className="flex gap-8 text-sm font-medium">
           <button
             onClick={() => navigate("/")}
@@ -30,7 +29,6 @@ const Home = () => {
           </button>
         </div>
 
-        {/* tombol kanan */}
         {isLoggedIn ? (
           <button
             onClick={() => {
@@ -60,7 +58,7 @@ const Home = () => {
         )}
       </nav>
 
-      {/* bagian Hero */}
+      {/*hero section*/}
       <main className="max-w-7xl mx-auto px-16 w-full grow pt-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12 w-full">
           <div className="space-y-6">
@@ -68,14 +66,15 @@ const Home = () => {
               Pahami gaya belajarmu, raih prestasi terbaikmu bersama AI.
             </h1>
             <p className="text-edu-text-gray text-base leading-relaxed max-w-lg">
-              Korem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis.
+              Temukan apakah kamu seorang pembelajar Visual, Auditory, atau
+              Kinestetik. Melalui analisis cerdas AI, ketahui ritme belajarmu
+              yang sesungguhnya dan optimalkan potensi akademikmu sekarang juga.
             </p>
             <button
               onClick={() => navigate("/assessment")}
               className="bg-edu-navy text-white font-semibold px-6 py-3 rounded-xl hover:bg-opacity-90 transition-all shadow-md cursor-pointer"
             >
-              Mulai Test
+              Mulai Tes
             </button>
           </div>
 
@@ -89,7 +88,7 @@ const Home = () => {
         </div>
       </main>
 
-      {/* footer */}
+      {/*footer*/}
       <footer className="px-16 py-8 pt-1 bg-white border-t border-gray-100 text-xs flex justify-between items-center">
         <div className="text-edu-navy font-bold">EduProfile AI</div>
         <div className="text-edu-text-gray">

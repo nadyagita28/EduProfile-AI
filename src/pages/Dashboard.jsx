@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import UserDashboard from "../components/UserDashboard";
-import UserProfile from "../components/UserProfile";
-import AssessmentHistory from "../components/AssessmentHistory";
-import EditProfile from "../components/EditProfile";
+import Navbar from "../components/layout/Navbar";
+import Sidebar from "../components/dashboard/Sidebar";
+import UserDashboard from "../components/dashboard/UserDashboard";
+import UserProfile from "../components/dashboard/UserProfile";
+import AssessmentHistory from "../components/dashboard/AssessmentHistory";
+import EditProfile from "../components/dashboard/EditProfile";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("home");

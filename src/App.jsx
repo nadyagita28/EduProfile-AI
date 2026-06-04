@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import AssessmentTest from "./pages/AssessmentTest";
 import Onboarding from "./pages/Onboarding";
 import LoadingResult from "./pages/LoadingResult";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
 
 function App() {
   return (
