@@ -19,8 +19,7 @@ const VakMaterialPhase = ({ materials, timeLeft, onStartQuiz }) => (
         </div>
       ))}
       <p className="text-xs text-edu-text-gray text-center">
-        ⏱️ Timer {Math.floor(timeLeft / 60)} menit akan mulai saat kamu klik
-        "Mulai Soal"
+        ⏱️ Timer 5 menit akan mulai saat kamu klik "Mulai Soal"
       </p>
     </div>
 

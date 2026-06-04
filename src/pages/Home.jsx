@@ -89,7 +89,7 @@ const Home = () => {
       </main>
 
       {/*footer*/}
-      <footer className="px-16 py-8 pt-1 bg-white border-t border-gray-100 text-xs flex justify-between items-center">
+      <footer className="px-6 sm:px-16 py-6 bg-white border-t border-gray-100 text-xs flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
         <div className="text-edu-navy font-bold">EduProfile AI</div>
         <div className="text-edu-text-gray">
           © 2026 EduProfile AI. All rights reserved. Built for academic

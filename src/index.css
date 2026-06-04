@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-edu-navy: #003366; /* Warna tombol & logo */
-  --color-edu-bg: #f8f9fa; /* Latar belakang halaman */
-  --color-edu-text-gray: #666666; /* Warna subtitle & label */
+  --color-edu-navy: #003366; /*warna tombol & logo*/
+  --color-edu-bg: #f8f9fa; /*latar belakang halaman*/
+  --color-edu-text-gray: #666666; /*warna subtitle & label*/
+  --animate-spin-slow: spin 12s linear infinite; /*animasi lambat untuk kompas*/
 }
 
 body {
